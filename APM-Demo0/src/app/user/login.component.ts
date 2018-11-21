@@ -6,7 +6,9 @@ import { AuthService } from './auth.service';
 
 /* NgRx */
 import { StoreModule, Store, select } from '@ngrx/store';
-import { reducer } from './state/login.reducer';
+import { reducer } from './state/user.reducer';
+
+import * as fromUser from './state/user.reducer';
 
 @Component({
   templateUrl: './login.component.html',
@@ -20,15 +22,16 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private router: Router,
-    private store: Store<any>, ) {
+    private store: Store<fromUser.State>, ) {
   }
 
   ngOnInit(): void {
     // TODO Unsubscribe
-    this.store.pipe(select('login')).subscribe(
-      maskedUser => {
+    this.store.pipe(select('user')).subscribe(
+      maskedUser => { 
         if (maskedUser) {
-          this.maskUserName = maskedUser.maskUserName;
+          // this.maskUserName = maskedUser.maskUserName;
+          this.maskUserName = maskedUser.maskUser; // Después del strong tipying
         }
       });
   }
