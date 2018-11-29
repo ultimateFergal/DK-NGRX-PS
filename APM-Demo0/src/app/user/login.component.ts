@@ -27,13 +27,18 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     // TODO Unsubscribe
-    this.store.pipe(select('user')).subscribe(
-      maskedUser => { 
-        if (maskedUser) {
-          // this.maskUserName = maskedUser.maskUserName;
-          this.maskUserName = maskedUser.maskUser; // Después del strong tipying
-        }
-      });
+    // this.store.pipe(select('user')).subscribe(
+    //   maskedUser => {
+    //     if (maskedUser) {
+    //       // this.maskUserName = maskedUser.maskUserName;
+    //       this.maskUserName = maskedUser.maskUser; // Después del strong tipying
+    //     }
+    //   }
+    // ); // Se reemplaza por el siguiente, luego de tener selectors definidos
+
+    this.store.pipe(select(fromUser.getMaskUser)).subscribe(
+      maskUser => this.maskUserName = maskUser
+    );
   }
 
   cancel(): void {
